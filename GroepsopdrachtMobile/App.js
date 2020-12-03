@@ -7,22 +7,25 @@ import MapView from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
 import MapScreen from './components/MapScreen';
 import ListScreen from './components/ListScreen';
+import { Feather } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-//icoontjes toevoegen in nav
+//StartScherm
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Map" component={MapViewScreenStack} />
-        <Tab.Screen name="Lijst" component={ListScreenStack} />
+        <Tab.Screen name="Map" component={MapViewScreenStack} options={{tabBarIcon: ({color, size}) => (
+         < Feather name="map" size={24} color="black" />)}} />
+        <Tab.Screen name="Lijst" component={ListScreenStack} options={{tabBarIcon: ({color, size}) => (
+        <Feather name="list" size={24} color="black" />)}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
+//ScreenStacks
 export const MapViewScreenStack = () => {
   return (
     <Stack.Navigator>
@@ -39,6 +42,7 @@ export const ListScreenStack = () => {
   )
 }
 
+//Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

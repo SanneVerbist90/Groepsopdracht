@@ -8,6 +8,11 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-nativ
 export default ListScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  // const Item = ({ title }) => (                item specifieren 
+  //   <View style={styles.item}>
+  //     <Text style={styles.title}>{title}</Text>
+  //   </View>
+  // );
 
   useEffect(() => {
     fetch('https://api.jsonbin.io/b/5fca6286516f9d1270281279')

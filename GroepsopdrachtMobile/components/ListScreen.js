@@ -22,10 +22,12 @@ export default ListScreen = () => {
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
-          keyExtractor={( item , index) => index.toString()}
+          //keyExtractor={(item , index) => index.toString()}
           renderItem={({ item }) => (
-            <Text>{item.attributes.NAAM}</Text>
+            <Item 
+              naam = {item.attributes.NAAM} />
           )}
+          keyExtractor={(item , index) => index.toString()}
         />
       )}
       <StatusBar style="auto" />

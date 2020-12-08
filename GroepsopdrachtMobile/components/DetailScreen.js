@@ -1,11 +1,11 @@
-import { StackView } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View, Button, Pressable } from 'react-native';
-import {Icon}from 'react-native-vector-icons';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View, Button } from 'react-native';
 
 
-export default ListScreen = ({navigation}) => {
+
+
+export default DetailScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   
@@ -29,22 +29,20 @@ export default ListScreen = ({navigation}) => {
   
 //controller --> in python is dit de serialliser --> hetgene dat je ophaalt "vertalen" zodat dit programma het verstaat
   const renderItem = ({ item }) => (
-    <Pressable onPress={() => navigation.navigate('DetailScreen', {screen : 'ListScreen'})}>
     <Item 
     title={item.attributes.NAAM} 
     adres={item.attributes.Adres}
     />
-    </Pressable>
   );
 //<Icon style={styles.icon} name="right" size={30} color="#900"/>
 
   return (
     <View style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item , index) => index.toString()}
+        <Text 
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item , index) => index.toString()}
         />
       )}
       <StatusBar style="auto"/>

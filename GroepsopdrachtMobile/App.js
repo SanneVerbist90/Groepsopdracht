@@ -8,6 +8,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import MapScreen from './components/MapScreen';
 import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
+import DetailScreen from './components/DetailScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -25,11 +26,14 @@ export default function App() {
         <Tab.Screen name="Lijst" component={ListScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="list" size={24} color="black" />)
-        }} />
+        }} />        
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+
+
 //ScreenStacks
 export const MapViewScreenStack = () => {
   return (
@@ -43,6 +47,14 @@ export const ListScreenStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
+    </Stack.Navigator>
+  )
+}
+
+export const DetailScreenStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
     </Stack.Navigator>
   )
 }

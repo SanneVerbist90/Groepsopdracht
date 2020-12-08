@@ -8,7 +8,7 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-nativ
 export default ListScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  // const Item = ({ title }) => (                item specifieren 
+  // const Item = ({ title }) => (                //item specifieren 
   //   <View style={styles.item}>
   //     <Text style={styles.title}>{title}</Text>
   //   </View>
@@ -22,20 +22,29 @@ export default ListScreen = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+  
+
+  const renderItem = ({ item }) => (
+    <Item title={item.attributes.NAAM} />
+  );
+
+
   return (
     <View style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
           //keyExtractor={(item , index) => index.toString()}
-          renderItem={({ item }) => (
-            <Item 
-              naam = {item.attributes.NAAM} />
-          )}
+          renderItem={renderItem}
           keyExtractor={(item , index) => index.toString()}
         />
       )}
-      <StatusBar style="auto" />
+      <StatusBar style="auto"/>
     </View>
   );
 };

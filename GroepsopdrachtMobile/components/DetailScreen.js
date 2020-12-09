@@ -30,6 +30,7 @@ export default DetailScreen = () => {
 //controller --> in python is dit de serialliser --> hetgene dat je ophaalt "vertalen" zodat dit programma het verstaat
   const renderItem = ({ item }) => (
     <Item 
+    title={item.attributes.NAAM}
     title={item.attributes.NAAM} 
     adres={item.attributes.Adres}
     />

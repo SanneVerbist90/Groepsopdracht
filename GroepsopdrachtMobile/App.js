@@ -19,6 +19,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
+
       <Tab.Navigator>
         <Tab.Screen name="Map" component={MapViewScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
@@ -34,8 +35,6 @@ export default function App() {
 }
 
 
-
-//ScreenStacks
 export const MapViewScreenStack = () => {
   return (
     <Stack.Navigator>
@@ -48,17 +47,36 @@ export const ListScreenStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
-    </Stack.Navigator>
-  )
-}
-
-export const DetailScreenStack = () => {
-  return (
-    <Stack.Navigator>
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
     </Stack.Navigator>
   )
 }
+
+
+//ScreenStacks
+// export const MapViewScreenStack = () => {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }} />
+//     </Stack.Navigator>
+//   )
+// }
+
+// export const ListScreenStack = () => {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
+//     </Stack.Navigator>
+//   )
+// }
+
+// export const DetailScreenStack = () => {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
+//     </Stack.Navigator>
+//   )
+// }
 
 //Styles
 const styles = StyleSheet.create({

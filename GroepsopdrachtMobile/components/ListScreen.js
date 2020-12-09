@@ -29,7 +29,7 @@ export default ListScreen = ({navigation}) => {
   
 //controller --> in python is dit de serialliser --> hetgene dat je ophaalt "vertalen" zodat dit programma het verstaat
   const renderItem = ({ item }) => (
-    <Pressable onPress={() => navigation.navigate('DetailScreen', {screen : 'ListScreen'})}>
+    <Pressable onPress={() => navigation.navigate('DetailScreen')}>
     <Item 
     title={item.attributes.NAAM} 
     adres={item.attributes.Adres}

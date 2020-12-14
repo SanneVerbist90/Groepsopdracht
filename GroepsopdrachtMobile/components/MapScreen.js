@@ -1,37 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import { MaterialIcons } from '@expo/vector-icons';
 import { round } from 'react-native-reanimated';
 import { Button } from 'react-native';
-//import { markerView } from './MarkerView';  
+import DetailScreen from './DetailScreen';
 
-function markerView(markerobject) {
-  // console.log(markerobject.attributes.NAAM);
-  return (
-    <View style={styles.markerView}>
-      <View style={styles.toprow}>
-        <MaterialIcons style={styles.bikelogo} name="directions-bike" size={40} color="black" />
-        <View style={styles.textbox}>
-          <Text style={styles.title}>{markerobject.attributes.NAAM}</Text>
-          <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
-        </View>
-      </View>
-      <View style={styles.bottomrow}>
-        <Button title="Detail" color="blue"/>
-      </View> 
-    </View>
-
-  );
-}
-
-export default MapScreen = () => {
+export default MapScreen = ({navigation}) => {
+ 
   const [status, changeStatus] = useState(false);
   const [markerObject, changeMarker] = useState({});
+
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  
   useEffect(() => {
     fetch('https://api.jsonbin.io/b/5fca6286516f9d1270281279')
       .then((response) => response.json())
@@ -39,6 +23,7 @@ export default MapScreen = () => {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
+  
   //  console.log(status);
 
   // console.log(data.map((marker, index)=>(marker.geometry.y)));
@@ -61,9 +46,28 @@ export default MapScreen = () => {
             }} />
         ))}
       </MapView>
-      { status != false ? markerView(markerObject) : null}
+      { status != false ? markerView(markerObject, {navigation}) : null}
     </View>
   );
+}
+
+function markerView(markerobject, {navigation}) {
+  console.log(markerobject.attributes.NAAM);
+ return (
+   <View style={styles.markerView}>
+     <View style={styles.toprow}>
+       <MaterialIcons style={styles.bikelogo} name="directions-bike" size={40} color="black" />
+       <View style={styles.textbox}>
+         <Text style={styles.title}>{markerobject.attributes.NAAM}</Text>
+         <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
+       </View>
+     </View>
+     <View style={styles.bottomrow}>
+       <Button title="Detail" color="blue" onPress={() => navigation.navigate('DetailScreen',{location:markerobject}) } />
+     
+     </View>
+   </View>
+ );
 }
 
 /*styles*/
@@ -72,8 +76,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
   },
   mapStyle: {
     flex: 1,
@@ -86,12 +88,11 @@ const styles = StyleSheet.create({
     bottom: 20,
     height: 100,
     flexDirection: 'column',
-    flex:1
+    flex: 1
   },
   toprow: {
     flexDirection: 'row',
     height: '60%',
-    backgroundColor: 'yellow'
   },
   bikelogo: {
     height: 80,
@@ -115,10 +116,8 @@ const styles = StyleSheet.create({
   },
   bottomrow: {
     flexDirection: 'row',
-    flex:1,
-    width: '80%',
-    backgroundColor: 'purple',
+    flex: 1,
+    width: '100%',
     justifyContent: 'center',
-    alignItems
   },
 });

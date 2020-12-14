@@ -6,51 +6,19 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, View, Button } from 'rea
 
 
 export default DetailScreen = ({route, navigation}) => {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
   const loc = route.params;
 
-  console.log(route.params)
-
-  //date ophalen 
-  useEffect(() => {
-    fetch('https://api.jsonbin.io/b/5fca6286516f9d1270281279')
-      .then((response) => response.json())
-      .then((json) => setData(json.features))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
-
-  //view
-  const Item = ({ title, adres }) => (
-    <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.adres}>{adres}</Text>
-    </View>
-  );
-  
-//controller --> in python is dit de serialliser --> hetgene dat je ophaalt "vertalen" zodat dit programma het verstaat
-  const renderItem = ({ item }) => (
-    <Item 
-    title={item.attributes.NAAM}
-    adres={item.attributes.Adres}
-    />
-  );
-//<Icon style={styles.icon} name="right" size={30} color="#900"/>
+  //console.log(route.params);
 
   return (
-    <View style={styles.container}>
-      
-        <Text>
-        {loc.location.attributes.NAAM}
-        Naam: 
-        {loc.location.attributes.NAAM}
-        Informatieveld 1:
-        {loc.location.attributes.NAAM}
-        Informatieveld 2:
-        {loc.location.attributes.NAAM}
-        </Text>
-      
+    <View style={styles.container}>      
+        <Text style={styles.title}>{loc.location.attributes.NAAM}</Text>
+        <Text style={{fontWeight:'bold'}}>Naam: </Text>         
+        <Text>{loc.location.attributes.NAAM}</Text>
+        <Text style={{fontWeight:'bold'}}>Adres </Text> 
+        <Text>{loc.location.attributes.Adres}</Text>
+        <Text style={{fontWeight:'bold'}}>Aantal Fietsplaatsen </Text> 
+        <Text>{loc.location.attributes.Max_Fiets}</Text>        
       <StatusBar style="auto"/>
     </View>
   );

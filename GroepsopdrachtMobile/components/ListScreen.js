@@ -10,7 +10,7 @@ export default ListScreen = ({navigation}) => {
   const [data, setData] = useState([]);
   
 
-  //date ophalen 
+  //data ophalen 
   useEffect(() => {
     fetch('https://api.jsonbin.io/b/5fca6286516f9d1270281279')
       .then((response) => response.json())
@@ -29,10 +29,11 @@ export default ListScreen = ({navigation}) => {
   
 //controller --> in python is dit de serialliser --> hetgene dat je ophaalt "vertalen" zodat dit programma het verstaat
   const renderItem = ({ item }) => (
-    <Pressable onPress={() => navigation.navigate('DetailScreen')}>
+    <Pressable onPress={() => navigation.navigate('DetailScreen',{location:item})}>
     <Item 
     title={item.attributes.NAAM} 
     adres={item.attributes.Adres}
+    id={item.attributes.OBJECTID}
     />
     </Pressable>
   );

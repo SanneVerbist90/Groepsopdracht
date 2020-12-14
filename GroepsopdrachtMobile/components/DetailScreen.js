@@ -5,10 +5,12 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, View, Button } from 'rea
 
 
 
-export default DetailScreen = () => {
+export default DetailScreen = ({route, navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  
+  const loc = route.params;
+
+  console.log(route.params)
 
   //date ophalen 
   useEffect(() => {
@@ -31,7 +33,6 @@ export default DetailScreen = () => {
   const renderItem = ({ item }) => (
     <Item 
     title={item.attributes.NAAM}
-    title={item.attributes.NAAM} 
     adres={item.attributes.Adres}
     />
   );
@@ -39,13 +40,17 @@ export default DetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isLoading ? <ActivityIndicator/> : (
-        <Text 
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item , index) => index.toString()}
-        />
-      )}
+      
+        <Text>
+        {loc.location.attributes.NAAM}
+        Naam: 
+        {loc.location.attributes.NAAM}
+        Informatieveld 1:
+        {loc.location.attributes.NAAM}
+        Informatieveld 2:
+        {loc.location.attributes.NAAM}
+        </Text>
+      
       <StatusBar style="auto"/>
     </View>
   );

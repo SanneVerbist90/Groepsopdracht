@@ -7,15 +7,20 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { round } from 'react-native-reanimated';
 import { Button } from 'react-native';
 import DetailScreen from './DetailScreen';
+import * as Location from 'expo-location';
+import LocationPermission from './Location';
 
-export default MapScreen = ({navigation}) => {
- 
+export default MapScreen = ({ navigation }) => {
+  LocationPermission()
+console.log(LocationPermission());
+  // Marker view
   const [status, changeStatus] = useState(false);
   const [markerObject, changeMarker] = useState({});
 
+  // Api fetch
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  
+
   useEffect(() => {
     fetch('https://api.jsonbin.io/b/5fca6286516f9d1270281279')
       .then((response) => response.json())
@@ -23,10 +28,7 @@ export default MapScreen = ({navigation}) => {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
-  
-  //  console.log(status);
 
-  // console.log(data.map((marker, index)=>(marker.geometry.y)));
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle} mapType={"standard"}
@@ -46,29 +48,31 @@ export default MapScreen = ({navigation}) => {
             }} />
         ))}
       </MapView>
-      { status != false ? markerView(markerObject, {navigation}) : null}
+      { status != false ? markerView(markerObject, { navigation }) : null}
     </View>
   );
 }
 
-function markerView(markerobject, {navigation}) {
-  console.log(markerobject.attributes.NAAM);
- return (
-   <View style={styles.markerView}>
-     <View style={styles.toprow}>
-       <MaterialIcons style={styles.bikelogo} name="directions-bike" size={40} color="black" />
-       <View style={styles.textbox}>
-         <Text style={styles.title}>{markerobject.attributes.NAAM}</Text>
-         <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
-       </View>
-     </View>
-     <View style={styles.bottomrow}>
-       <Button title="Detail" color="blue" onPress={() => navigation.navigate('DetailScreen',{location:markerobject}) } />
-     
-     </View>
-   </View>
- );
+// markerView
+function markerView(markerobject, { navigation }) {
+  //console.log(markerobject.attributes.NAAM);
+  return (
+    <View style={styles.markerView}>
+      <View style={styles.toprow}>
+        <MaterialIcons style={styles.bikelogo} name="directions-bike" size={40} color="black" />
+        <View style={styles.textbox}>
+          <Text style={styles.title}>{markerobject.attributes.NAAM}</Text>
+          <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
+        </View>
+      </View>
+      <View style={styles.bottomrow}>
+        <Button title="Detail" color="blue" onPress={() => navigation.navigate('DetailScreen', { location: markerobject })} />
+      </View>
+    </View>
+  );
 }
+
+
 
 /*styles*/
 

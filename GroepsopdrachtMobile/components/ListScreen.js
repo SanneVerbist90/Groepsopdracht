@@ -48,7 +48,7 @@ export default ListScreen = ({navigation}) => {
           keyExtractor={(item , index) => index.toString()}
         />
       )}
-      <StatusBar style="auto"/>
+      <StatusBar style="auto"/> 
     </View>
   );
 };

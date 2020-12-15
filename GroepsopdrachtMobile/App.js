@@ -9,7 +9,6 @@ import MapScreen from './components/MapScreen';
 import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
 import DetailScreen from './components/DetailScreen';
-import permission from './components/Location';
 
 
 const Tab = createBottomTabNavigator();
@@ -18,7 +17,6 @@ const Stack = createStackNavigator();
 //StartScherm
 
 export default function App() {
- // permission();
   return (
     <NavigationContainer>
       <Tab.Navigator>

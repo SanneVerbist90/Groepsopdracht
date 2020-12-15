@@ -10,7 +10,6 @@ import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
 import DetailScreen from './components/DetailScreen';
 
-
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 

@@ -9,21 +9,21 @@ import { Button } from 'react-native';
 import DetailScreen from './DetailScreen';
 import * as Location from 'expo-location';
 
-export default MapScreen = ({navigation}) => {
- 
+export default MapScreen = ({ navigation }) => {
+
   const [status, changeStatus] = useState(false);
   const [markerObject, changeMarker] = useState({});
   const [data, setData] = useState([]);
-  
+
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [load, isloading] = useState(true);
 
   //Api fetch
   useEffect(() => {
-    (async() => {
+    (async () => {
       let permissionStatus = await Location.requestPermissionsAsync();
-      if (permissionStatus.status !== 'granted'){
+      if (permissionStatus.status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
       }
@@ -40,53 +40,53 @@ export default MapScreen = ({navigation}) => {
       .catch((error) => console.error(error))
 
   }, []);
-  let text = 'Loading';
+  let text = 'Loading...';
   if (errorMsg) {
     text = errorMsg;
-  }  
+  }
   return (
     <View style={styles.container}>
-      { load ? <Text>{text}</Text> : 
-      <MapView style={styles.mapStyle} mapType={"standard"}
-      showsUserLocation={true}
-        initialRegion={{
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
-        }}>
-        {data.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={{ latitude: marker.geometry.y, longitude: marker.geometry.x }}
-            onPress={() => {
-              const showView = !status; changeStatus(showView),
-                changeMarker(marker)
-            }} />
-        ))}
-      </MapView>
-}
-      { status != false ? markerView(markerObject, {navigation}) : null}
+      { load ? <Text>{text}</Text> :
+        <MapView style={styles.mapStyle} mapType={"standard"}
+          showsUserLocation={true}
+          initialRegion={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          }}>
+          {data.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={{ latitude: marker.geometry.y, longitude: marker.geometry.x }}
+              onPress={() => {
+                const showView = !status; changeStatus(showView),
+                  changeMarker(marker)
+              }} />
+          ))}
+        </MapView>
+      }
+      { status != false ? markerView(markerObject, { navigation }) : null}
     </View>
   );
 }
 
-function markerView(markerobject, {navigation}) {
- return (
-   <View style={styles.markerView}>
-     <View style={styles.toprow}>
-       <MaterialIcons style={styles.bikelogo} name="directions-bike" size={40} color="black" />
-       <View style={styles.textbox}>
-         <Text style={styles.title}>{markerobject.attributes.NAAM}</Text>
-         <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
-       </View>
-     </View>
-     <View style={styles.bottomrow}>
-       <Button title="Detail" color="blue" onPress={() => navigation.navigate('DetailScreen',{location:markerobject}) } />
-     
-     </View>
-   </View>
- );
+function markerView(markerobject, { navigation }) {
+  return (
+    <View style={styles.markerView}>
+      <View style={styles.toprow}>
+        <MaterialIcons style={styles.bikelogo} name="directions-bike" size={40} color="black" />
+        <View style={styles.textbox}>
+          <Text style={styles.title}>{markerobject.attributes.NAAM}</Text>
+          <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
+        </View>
+      </View>
+      <View style={styles.bottomrow}>
+        <Button title="Detail" color="blue" onPress={() => navigation.navigate('DetailScreen', { location: markerobject })} />
+
+      </View>
+    </View>
+  );
 }
 
 /*styles*/

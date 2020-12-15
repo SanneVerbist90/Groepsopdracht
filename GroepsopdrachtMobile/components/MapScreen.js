@@ -7,32 +7,51 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { round } from 'react-native-reanimated';
 import { Button } from 'react-native';
 import DetailScreen from './DetailScreen';
+import * as Location from 'expo-location';
 
 export default MapScreen = ({navigation}) => {
  
   const [status, changeStatus] = useState(false);
   const [markerObject, changeMarker] = useState({});
-
-  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [load, isloading] = useState(true);
+
+  //Api fetch
+  useEffect(() => {
+    (async() => {
+      let permissionStatus = await Location.requestPermissionsAsync();
+      if (permissionStatus.status !== 'granted'){
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      isloading(false);
+    })();
+  }, []);
+
   useEffect(() => {
     fetch('https://api.jsonbin.io/b/5fca6286516f9d1270281279')
       .then((response) => response.json())
       .then((json) => setData(json.features))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
-  
-  //  console.log(status);
 
-  // console.log(data.map((marker, index)=>(marker.geometry.y)));
+  }, []);
+  let text = 'Loading';
+  if (errorMsg) {
+    text = errorMsg;
+  }  
   return (
     <View style={styles.container}>
+      { load ? <Text>{text}</Text> : 
       <MapView style={styles.mapStyle} mapType={"standard"}
-        region={{
-          latitude: 51.231107,
-          longitude: 4.415127,
+      showsUserLocation={true}
+        initialRegion={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         }}>
@@ -46,13 +65,13 @@ export default MapScreen = ({navigation}) => {
             }} />
         ))}
       </MapView>
+}
       { status != false ? markerView(markerObject, {navigation}) : null}
     </View>
   );
 }
 
 function markerView(markerobject, {navigation}) {
-  console.log(markerobject.attributes.NAAM);
  return (
    <View style={styles.markerView}>
      <View style={styles.toprow}>

@@ -81,10 +81,7 @@ function markerView(markerobject, { navigation }) {
           <Text style={styles.address}>{markerobject.attributes.Adres}</Text>
         </View>
       </View>
-      <View style={styles.bottomrow}>
-        <Button title="Detail" color="blue" onPress={() => navigation.navigate('DetailScreen', { location: markerobject })} />
-
-      </View>
+        <Button title="Detail" onPress={() => navigation.navigate('DetailScreen', { location: markerobject })} />
     </View>
   );
 }
@@ -107,7 +104,8 @@ const styles = StyleSheet.create({
     bottom: 20,
     height: 100,
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    padding: 5,
   },
   toprow: {
     flexDirection: 'row',

@@ -9,6 +9,7 @@ import MapScreen from './components/MapScreen';
 import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
 import DetailScreen from './components/DetailScreen';
+import Camera from './components/Camera';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -39,6 +40,7 @@ export const MapViewScreenStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }}/>
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
+      <Stack.Screen name="Camera" component={Camera} options={{ title: "Camera" }} />
     </Stack.Navigator>
   )
 }

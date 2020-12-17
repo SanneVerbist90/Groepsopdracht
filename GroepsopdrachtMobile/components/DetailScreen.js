@@ -1,17 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, ImageEditor } from 'react-native';
+import { Button } from 'react-native';
+import Camera from './Camera';
+import * as FileSystem from 'expo-file-system';
 
-
-
-
-export default DetailScreen = ({route, navigation}) => {
+export default DetailScreen = ({ route, navigation }) => {
   const loc = route.params;
-
-
+  const [location, setLocation] = useState('');
+  
+  const getPhotoUri = async () => {
+    await FileSystem.getInfoAsync(`${FileSystem.documentDirectory}${loc.location.attributes.OBJECTID}`)
+      .then(({ uri }) => {
+        console.log('Uri detail: ', uri);
+        setLocation(uri);        
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+getPhotoUri();
   return (
     <View style={styles.container}>
-        <Text style={styles.titel}>{loc.location.attributes.NAAM}{"\n"}</Text>
+            { location ?  <Image source={{ uri: location }} style={styles.image} />: null}
+      <Text style={styles.titel}>{loc.location.attributes.NAAM}{"\n"}</Text>
       <View style={styles.duo}>
         <Text style={styles.titelDetail}>Naam:</Text>
         <Text style={styles.detail}>{loc.location.attributes.NAAM}{"\n"}</Text>
@@ -24,19 +36,20 @@ export default DetailScreen = ({route, navigation}) => {
         <Text style={styles.titelDetail}>Aantal fietsplaatsen:</Text>
         <Text style={styles.detail}>{loc.location.attributes.Max_Fiets}{"\n"}</Text>
       </View>
+      <Button title="Camera" onPress={() => navigation.navigate('Camera', { id: loc.location.attributes.OBJECTID })} />
     </View>
   );
 };
 
 
 const styles = StyleSheet.create({
-  container:{
-    padding:10,
+  container: {
+    padding: 10,
     backgroundColor: 'white',
     justifyContent: 'center',
-    width:'92%',
-    height:'auto',
-    backgroundColor:'#fff',
+    width: '92%',
+    height: 'auto',
+    backgroundColor: '#fff',
     alignSelf: 'center',
     borderWidth: 0.5,
     borderTopLeftRadius: 2,
@@ -46,18 +59,27 @@ const styles = StyleSheet.create({
     borderColor: 'lightgray',
     marginTop: '4%',
   },
-  duo:{
+  duo: {
 
   },
-  titel:{
+  titel: {
     fontWeight: 'bold',
     fontSize: 20,
 
   },
-  titelDetail:{
+  titelDetail: {
     fontWeight: 'bold',
   },
-  detail:{
+  detail: {
     color: '#24252a',
+  },
+  image: {
+
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '40%',
+    resizeMode: 'contain',
+    alignContent: 'stretch'
   }
 });

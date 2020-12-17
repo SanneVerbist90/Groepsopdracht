@@ -17,10 +17,19 @@ export default DetailScreen = ({route, navigation}) => {
     setToggle(!toggle);
   };
 
-  const saveItem =  async () =>{
+  const saveItem =  async (item) =>{
     try{
-      let jsonItem = JSON.stringify(item);
-      await AsyncStorage.setItem('@storage_Key',jsonItem); //key 
+      let jsonItem = await AsyncStorage.getItem('@Key')
+      if(jsonItem == null){
+        jsonItem = JSON.stringify(item);
+       await AsyncStorage.setItem('@Key', `[${jsonItem}]` );
+       return;
+      }
+      else{
+       let jsonArray= JSON.parse(jsonItem);
+       jsonArray.push(item);
+       await AsyncStorage.setItem('@key', JSON.stringify(jsonArray));
+      }      
     }
     catch(e){
       console.log(e)
@@ -50,15 +59,8 @@ getPhotoUri();
       <Text style={styles.titelDetail}>Aantal fietsplaatsen:</Text>
       <Text style={styles.detail}>{loc.location.attributes.Max_Fiets}{"\n"}</Text>
       <Button title="Camera" onPress={() => navigation.navigate('Camera', { id: loc.location.attributes.OBJECTID })} />
-      { /*<Button 
-        title='Voeg toe aan favorieten' 
-        style={styles.button} 
-        type='button' 
-        
-        onPress={(event)=> saveItem()} //event.nativeEvent.item
-
-      /> */}
-      <TouchableOpacity onPress={(event)=> saveItem()} style={styles.button}>
+     
+      <TouchableOpacity onPress={(event)=> saveItem(item)} style={styles.button}>
         <TouchableOpacity onPress={() => toggleFunction()}  
           type='button' >
           <Text style={styles.buttonText}>{toggle ? 'Voeg toe aan favorieten' : 'Verwijder uit favorieten'}</Text>
@@ -67,7 +69,6 @@ getPhotoUri();
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
     color: '#24252a',
   },
   image: {
-
     top: 0,
     left: 0,
     width: '100%',

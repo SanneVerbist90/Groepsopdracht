@@ -35,8 +35,7 @@ export default ListScreen = ({navigation}) => {
       title={item.attributes.NAAM} 
       adres={item.attributes.Adres}
       id={item.attributes.OBJECTID}
-      />
-      
+      />      
     </Pressable>
   );
 //<Icon style={styles.icon} name="right" size={30} color="#900"/>

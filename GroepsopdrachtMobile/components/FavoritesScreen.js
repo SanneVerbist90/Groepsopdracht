@@ -1,18 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View, FlatList, StyleSheet } from 'react-native';
+import { ActivityIndicator, Text, View, FlatList, StyleSheet, Pressable } from 'react-native';
 import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 
 
-export default FavoritesScreen = (route) => {
+export default FavoritesScreen = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const [dataArray, setData] = useState([]);
+
+    useEffect(() => {
+        loadAsyncData();
+    }, []);
 
     const loadAsyncData = async () => {
         try {
-            const jsonItem = await AsyncStorage.getItem('@storage_Key') //key ??
+            const jsonItem = await AsyncStorage.getItem('@Key') //key ??
             setData(jsonItem != null ? JSON.parse(jsonItem) : null)
-            if (data !== null) {
+            if (dataArray !== null) {
                 setLoading(false);
             }
         }
@@ -20,12 +24,8 @@ export default FavoritesScreen = (route) => {
             console.log('uhoh');
         }
     }
-    
-    useEffect(() => {
-        loadAsyncData();
-    }, []);
 
-    console.log('data1: ', data);
+    console.log('data1: ', dataArray);
     console.log('loading: ', isLoading);
 
     const Item = ({ title, adres }) => (
@@ -35,21 +35,25 @@ export default FavoritesScreen = (route) => {
         </View>
     );
 
-    const renderItem = ({ item }) => (
-        <Pressable onPress={() => navigation.navigate('DetailScreen', { location: item })}>
+    const renderItem = ({ item }) => {
+        return (
             <Item
-                title={data.NAAM}
-                adres={data.Adres}
-                id={data.OBJECTID}
+                title={item.NAAM}
+                adres={item.Adres}
+                id={item.OBJECTID}
             />
-        </Pressable>
-    );
+        )
+    };
 
     return (
         <View style={styles.container}>
-            {isLoading ? <Text style={{ backgroundColor: 'purple' }}>Loading...</Text> : 
-            (<Text>{data.NAAM}</Text>
-            )}
+            {isLoading ? <Text>Loading...</Text> :
+                (<FlatList
+                    data={dataArray}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                    extraData={dataArray} />
+                )}
             <StatusBar style="auto" />
         </View>
     );
@@ -64,17 +68,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: 'lightslategrey',
     },
-    title:{
+    title: {
         fontSize: 16,
         fontWeight: 'bold',
-      },
-      adres:{
+    },
+    adres: {
         fontSize: 15,
-        color:'gray',             //aanpassen android
-      },
+        color: 'gray',
+    },
     container: {
         flex: 1,
-        backgroundColor: 'red',
         alignItems: 'stretch',
         justifyContent: 'flex-start',
     },

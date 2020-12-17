@@ -9,6 +9,7 @@ import MapScreen from './components/MapScreen';
 import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
 import DetailScreen from './components/DetailScreen';
+import FavoritesScreen from './components/FavoritesScreen'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,12 +23,16 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen name="Map" component={MapViewScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
-            < Feather name="map" size={24} color="black" />)
+            <Feather name="map" size={24} color="black" />)
         }} />
         <Tab.Screen name="Lijst" component={ListScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="list" size={24} color="black" />)
-        }} />        
+        }} />
+        <Tab.Screen name="Favorites" component={FavoritesScreenStack} options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="star" size={24} color="black" />)
+        }} />      
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -50,32 +55,15 @@ export const ListScreenStack = () => {
     </Stack.Navigator>
   )
 }
+export const FavoritesScreenStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} options={{ title: "Favorites" }} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
+    </Stack.Navigator>
+  )
+}
 
-
-//ScreenStacks
-// export const MapViewScreenStack = () => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }} />
-//     </Stack.Navigator>
-//   )
-// }
-
-// export const ListScreenStack = () => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
-//     </Stack.Navigator>
-//   )
-// }
-
-// export const DetailScreenStack = () => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
-//     </Stack.Navigator>
-//   )
-// }
 
 //Styles
 const styles = StyleSheet.create({

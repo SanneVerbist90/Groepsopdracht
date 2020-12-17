@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     height: 100,
     flexDirection: 'column',
     flex: 1,
-    padding: 5,
+    padding: 1,
   },
   toprow: {
     flexDirection: 'row',

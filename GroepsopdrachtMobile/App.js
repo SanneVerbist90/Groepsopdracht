@@ -50,6 +50,7 @@ export const ListScreenStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
+      <Stack.Screen name="Camera" component={Camera} options={{ title: "Camera" }} />
     </Stack.Navigator>
   )
 }

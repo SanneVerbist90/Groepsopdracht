@@ -4,13 +4,15 @@ import { Camera } from 'expo-camera';
 import { Button } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 
-export default cameraScreen = ({route}) => {
+export default cameraScreen = ({ route, navigation }) => {
   const picture = route.params;
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [ image, setImage] = useState();
+  const [image, setImage] = useState();
   const camera = useRef();
- console.log(picture.id);
+
+  console.log(picture.id);
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -25,17 +27,19 @@ export default cameraScreen = ({route}) => {
     return <Text>No access to camera</Text>;
   }
 
-  const takePicture = async() => {
-    let picture = await camera.current.takePictureAsync();
-   setImage(picture);
+  const takePicture = async () => {
+    let photo = await camera.current.takePictureAsync();
+    setImage(photo);
+    if (image != null) {
+      FileSystem.moveAsync({
+        from: `${image.uri}`,
+        to: `${FileSystem.documentDirectory}${picture.id}`,
+      })
+      console.log('foto gelukt', picture.id);
+      console.log(`${FileSystem.documentDirectory}${picture.id}`);
+      navigation.navigate('DetailScreen');
+    }
   }
-
-  FileSystem.moveAsync({
-    from: `${image.uri}`,
-   to: `${FileSystem.documentDirectory}Camera/${picture.id}.jpg`
-  })
-
-  if(image) console.log(image.uri);
 
   return (
     <View style={styles.container}>
@@ -51,9 +55,9 @@ export default cameraScreen = ({route}) => {
               );
             }}>
             <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>         
+          </TouchableOpacity>
         </View>
-        <Button title="Take Picture" onPress={takePicture}/>
+        <Button title="Take Picture" onPress={takePicture} />
       </Camera>
     </View>
   );

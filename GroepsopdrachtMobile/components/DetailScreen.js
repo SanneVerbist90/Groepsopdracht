@@ -18,7 +18,7 @@ export default DetailScreen = ({ route, navigation }) => {
   const saveItem = async (item) => {
     try {
       let jsonItem = await AsyncStorage.getItem('@Key')
-      if (jsonItem !== null) {
+      if (jsonItem != null) {
         let jsonArray = JSON.parse(jsonItem);
         jsonArray.push(item);
         await AsyncStorage.setItem('@Key', JSON.stringify(jsonArray));

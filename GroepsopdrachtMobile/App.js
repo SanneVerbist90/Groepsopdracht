@@ -10,18 +10,18 @@ import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
 import DetailScreen from './components/DetailScreen';
 import FavoritesScreen from './components/FavoritesScreen'
+import Camera from './components/Camera';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-
 //StartScherm
+
 export default function App() {
   return (
     <NavigationContainer>
-
       <Tab.Navigator>
-        <Tab.Screen name="Map" component={MapViewScreenStack} options={{
+        <Tab.Screen name="Maps" component={MapViewScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="map" size={24} color="black" />)
         }} />
@@ -32,17 +32,18 @@ export default function App() {
         <Tab.Screen name="Favorites" component={FavoritesScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="star" size={24} color="black" />)
-        }} />      
-      </Tab.Navigator>
+        }} />           </Tab.Navigator>
     </NavigationContainer>
   );
 }
 
-
+//ScreenStacks
 export const MapViewScreenStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }} />
+      <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }}/>
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
+      <Stack.Screen name="Camera" component={Camera} options={{ title: "Camera" }} />
     </Stack.Navigator>
   )
 }
@@ -52,6 +53,7 @@ export const ListScreenStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
+      <Stack.Screen name="Camera" component={Camera} options={{ title: "Camera" }} />
     </Stack.Navigator>
   )
 }
@@ -63,7 +65,6 @@ export const FavoritesScreenStack = () => {
     </Stack.Navigator>
   )
 }
-
 
 //Styles
 const styles = StyleSheet.create({

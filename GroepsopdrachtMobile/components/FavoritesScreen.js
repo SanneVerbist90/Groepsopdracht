@@ -41,6 +41,7 @@ export default FavoritesScreen = (route) => {
             />
         )
     };
+    console.log(dataArray);
 
     return (
         <View style={styles.container}>

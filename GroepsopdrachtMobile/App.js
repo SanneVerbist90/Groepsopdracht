@@ -9,6 +9,7 @@ import MapScreen from './components/MapScreen';
 import ListScreen from './components/ListScreen';
 import { Feather } from '@expo/vector-icons';
 import DetailScreen from './components/DetailScreen';
+import FavoritesScreen from './components/FavoritesScreen'
 import Camera from './components/Camera';
 
 const Tab = createBottomTabNavigator();
@@ -22,14 +23,16 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen name="Maps" component={MapViewScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
-            < Feather name="map" size={24} color="black" />)
-        }}/>
-         
-        <Tab.Screen name="List" component={ListScreenStack} options={{
+            <Feather name="map" size={24} color="black" />)
+        }} />
+        <Tab.Screen name="Lijst" component={ListScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="list" size={24} color="black" />)
         }} />
-      </Tab.Navigator>
+        <Tab.Screen name="Favorites" component={FavoritesScreenStack} options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="star" size={24} color="black" />)
+        }} />           </Tab.Navigator>
     </NavigationContainer>
   );
 }
@@ -51,6 +54,14 @@ export const ListScreenStack = () => {
       <Stack.Screen name="ListScreen" component={ListScreen} options={{ title: "List" }} />
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
       <Stack.Screen name="Camera" component={Camera} options={{ title: "Camera" }} />
+    </Stack.Navigator>
+  )
+}
+export const FavoritesScreenStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} options={{ title: "Favorites" }} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
     </Stack.Navigator>
   )
 }

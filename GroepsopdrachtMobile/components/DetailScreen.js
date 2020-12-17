@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Image,TouchableOpacity} from 'react-native';
 import AsyncStorage, { useAsyncStorage} from '@react-native-community/async-storage';
-import { Button } from 'react-native';
 import Camera from './Camera';
 import * as FileSystem from 'expo-file-system';
 
@@ -21,7 +20,7 @@ export default DetailScreen = ({route, navigation}) => {
   const saveItem =  async () =>{
     try{
       let jsonItem = JSON.stringify(item);
-      await AsyncStorage.setItem(key.toString() ,jsonItem); //key 
+      await AsyncStorage.setItem('@storage_Key',jsonItem); //key 
     }
     catch(e){
       console.log(e)
@@ -51,14 +50,14 @@ getPhotoUri();
       <Text style={styles.titelDetail}>Aantal fietsplaatsen:</Text>
       <Text style={styles.detail}>{loc.location.attributes.Max_Fiets}{"\n"}</Text>
       <Button title="Camera" onPress={() => navigation.navigate('Camera', { id: loc.location.attributes.OBJECTID })} />
-      {/* <Button 
+      { <Button 
         title='Voeg toe aan favorieten' 
         style={styles.button} 
         type='button' 
         
         onPress={(event)=> saveItem()} //event.nativeEvent.item
 
-      /> */}
+      /> }
       <TouchableOpacity onPress={(event)=> saveItem()} style={styles.button}>
         <TouchableOpacity onPress={() => toggleFunction()}  
           type='button' >
@@ -102,7 +101,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   titelDetail:{
- main
     fontWeight: 'bold',
   },
   detail: {

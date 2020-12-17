@@ -32,7 +32,8 @@ export default function App() {
         <Tab.Screen name="Favorites" component={FavoritesScreenStack} options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="star" size={24} color="black" />)
-        }} />           </Tab.Navigator>
+        }} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
@@ -41,7 +42,7 @@ export default function App() {
 export const MapViewScreenStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }}/>
+      <Stack.Screen name="MapScreen" component={MapScreen} options={{ title: "Map" }} />
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ title: "Detail" }} />
       <Stack.Screen name="Camera" component={Camera} options={{ title: "Camera" }} />
     </Stack.Navigator>

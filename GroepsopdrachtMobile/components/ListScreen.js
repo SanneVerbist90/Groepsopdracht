@@ -65,11 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     borderBottomWidth: 1,
     borderBottomColor: 'lightslategrey',
-
-  // },
-  // icon:
-  // {
-
   },
   title:{
     fontSize: 16,

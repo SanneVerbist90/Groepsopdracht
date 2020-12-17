@@ -1,12 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import { MaterialIcons } from '@expo/vector-icons';
-import { round } from 'react-native-reanimated';
 import { Button } from 'react-native';
-import DetailScreen from './DetailScreen';
 import * as Location from 'expo-location';
 
 export default MapScreen = ({ navigation }) => {
@@ -19,7 +16,6 @@ export default MapScreen = ({ navigation }) => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [load, isloading] = useState(true);
 
-  //Api fetch
   useEffect(() => {
     (async () => {
       let permissionStatus = await Location.requestPermissionsAsync();

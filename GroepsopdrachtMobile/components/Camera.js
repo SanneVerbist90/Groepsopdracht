@@ -11,8 +11,6 @@ export default cameraScreen = ({ route, navigation }) => {
   const [image, setImage] = useState();
   const camera = useRef();
 
-  console.log(picture.id);
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -23,6 +21,7 @@ export default cameraScreen = ({ route, navigation }) => {
   if (hasPermission === null) {
     return <View />;
   }
+
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
@@ -35,8 +34,6 @@ export default cameraScreen = ({ route, navigation }) => {
         from: `${image.uri}`,
         to: `${FileSystem.documentDirectory}${picture.id}`,
       })
-      console.log('foto gelukt', picture.id);
-      console.log(`${FileSystem.documentDirectory}${picture.id}`);
       navigation.navigate('DetailScreen');
     }
   }

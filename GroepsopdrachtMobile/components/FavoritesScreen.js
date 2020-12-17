@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View, FlatList, StyleSheet, Pressable } from 'react-native';
-import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
+import { Text, View, FlatList, StyleSheet, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
-export default FavoritesScreen = ({ route, navigation }) => {
+export default FavoritesScreen = (route) => {
     const [isLoading, setLoading] = useState(true);
     const [dataArray, setData] = useState([]);
 
@@ -14,19 +14,16 @@ export default FavoritesScreen = ({ route, navigation }) => {
 
     const loadAsyncData = async () => {
         try {
-            const jsonItem = await AsyncStorage.getItem('@Key') //key ??
+            const jsonItem = await AsyncStorage.getItem('@Key')
             setData(jsonItem != null ? JSON.parse(jsonItem) : null)
             if (dataArray !== null) {
                 setLoading(false);
             }
         }
         catch (e) {
-            console.log('uhoh');
+            console.log(e);
         }
     }
-
-    console.log('data1: ', dataArray);
-    console.log('loading: ', isLoading);
 
     const Item = ({ title, adres }) => (
         <View style={styles.item}>

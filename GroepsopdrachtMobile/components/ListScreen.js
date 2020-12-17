@@ -1,15 +1,10 @@
-import { StackView } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View, Button, Pressable } from 'react-native';
-import {Icon}from 'react-native-vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
-
+import { ActivityIndicator, FlatList, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default ListScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
 
   //data ophalen 
   useEffect(() => {
@@ -38,8 +33,6 @@ export default ListScreen = ({navigation}) => {
       />      
     </Pressable>
   );
-//<Icon style={styles.icon} name="right" size={30} color="#900"/>
-
 
   return (
     <View style={styles.container}>
@@ -54,7 +47,6 @@ export default ListScreen = ({navigation}) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   item:{
@@ -71,7 +63,7 @@ const styles = StyleSheet.create({
   },
   adres:{
     fontSize: 15,
-    color:'gray',             //aanpassen android
+    color:'gray',          
   },
   container: {
     flex: 1,

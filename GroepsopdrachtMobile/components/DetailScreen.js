@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Image,TouchableOpacity} from 'react-native';
-import AsyncStorage, { useAsyncStorage} from '@react-native-community/async-storage';
-import Camera from './Camera';
+import AsyncStorage from '@react-native-community/async-storage';
 import * as FileSystem from 'expo-file-system';
 
 export default DetailScreen = ({route, navigation}) => {
@@ -39,7 +37,6 @@ export default DetailScreen = ({route, navigation}) => {
   const getPhotoUri = async () => {
     await FileSystem.getInfoAsync(`${FileSystem.documentDirectory}${loc.location.attributes.OBJECTID}`)
       .then(({ uri }) => {
-        console.log('Uri detail: ', uri);
         setLocation(uri);        
       })
       .catch(error => {
@@ -59,13 +56,10 @@ getPhotoUri();
       <Text style={styles.titelDetail}>Aantal fietsplaatsen:</Text>
       <Text style={styles.detail}>{loc.location.attributes.Max_Fiets}{"\n"}</Text>
       <Button title="Camera" onPress={() => navigation.navigate('Camera', { id: loc.location.attributes.OBJECTID })} />
-     
-      <TouchableOpacity onPress={(event)=> saveItem(item)} style={styles.button}>
-        <TouchableOpacity onPress={() => toggleFunction()}  
+        <TouchableOpacity  style={styles.button} onPress={() => {toggleFunction(); saveItem(item)}}
           type='button' >
           <Text style={styles.buttonText}>{toggle ? 'Voeg toe aan favorieten' : 'Verwijder uit favorieten'}</Text>
         </TouchableOpacity>
-      </TouchableOpacity>
     </View>
   );
 };

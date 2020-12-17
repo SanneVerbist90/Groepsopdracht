@@ -50,14 +50,14 @@ getPhotoUri();
       <Text style={styles.titelDetail}>Aantal fietsplaatsen:</Text>
       <Text style={styles.detail}>{loc.location.attributes.Max_Fiets}{"\n"}</Text>
       <Button title="Camera" onPress={() => navigation.navigate('Camera', { id: loc.location.attributes.OBJECTID })} />
-      { <Button 
+      { /*<Button 
         title='Voeg toe aan favorieten' 
         style={styles.button} 
         type='button' 
         
         onPress={(event)=> saveItem()} //event.nativeEvent.item
 
-      /> }
+      /> */}
       <TouchableOpacity onPress={(event)=> saveItem()} style={styles.button}>
         <TouchableOpacity onPress={() => toggleFunction()}  
           type='button' >
